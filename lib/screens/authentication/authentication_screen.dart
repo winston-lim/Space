@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //for PlatformException class
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../widgets/auth/authForm.dart';
+import 'package:space/widgets/auth/auth_form.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   @override
@@ -50,7 +50,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         _isLoading = false;
       });
     } catch (err) {
-      print(err);
       setState(() {
         _isLoading = false;
       });
@@ -64,7 +63,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       appBar: AppBar(
         backgroundColor: Colors.brown[100],
         elevation: 0.0,
-        title: Text('Sign In'),
+        title: const Text('Sign In'),
       ),
       body: AuthForm(_onAuthenticateUser),
     );

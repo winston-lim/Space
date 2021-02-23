@@ -8,9 +8,8 @@ class AuthForm extends StatefulWidget {
     String userName,
     bool isUserLoggedIn,
     BuildContext ctx,
-    [File image]
   ) submitFn;
-  AuthForm(
+  const AuthForm(
     this.submitFn,
   );
   @override
@@ -24,7 +23,6 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
-  File _userImageFile;
 
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
@@ -37,7 +35,6 @@ class _AuthFormState extends State<AuthForm> {
         _userName.trim(),
         _logInMode,
         context,
-        _userImageFile,
       );
     }
   }
@@ -46,19 +43,18 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextFormField(
-                    key: ValueKey('email'),
+                    key: const ValueKey('email'),
                     autocorrect: false,
-                    textCapitalization: TextCapitalization.none,
                     enableSuggestions: false,
                     validator: (value) {
                       if (value.isEmpty || !value.contains('@')) {
@@ -67,7 +63,7 @@ class _AuthFormState extends State<AuthForm> {
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Email address',
                     ),
                     onSaved: (value) {
@@ -76,8 +72,7 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                   if (!_logInMode)
                     TextFormField(
-                      key: ValueKey('username'),
-                      autocorrect: true,
+                      key: const ValueKey('username'),
                       textCapitalization: TextCapitalization.words,
                       enableSuggestions: false,
                       validator: (value) {
@@ -86,43 +81,43 @@ class _AuthFormState extends State<AuthForm> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(labelText: 'Username'),
+                      decoration: const InputDecoration(labelText: 'Username'),
                       onSaved: (value) {
                         _userName = value;
                       },
                     ),
                   TextFormField(
-                    key: ValueKey('password'),
+                    key: const ValueKey('password'),
                     validator: (value) {
                       if (value.isEmpty || value.length < 7) {
                         return 'Password must be at least 7 characters long.';
                       }
                       return null;
                     },
-                    decoration: InputDecoration(labelText: 'Password'),
+                    decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     onSaved: (value) {
                       _userPassword = value;
                     },
                   ),
-                  SizedBox(height: 12),
-                  if (_isLoading) CircularProgressIndicator(),
+                  const SizedBox(height: 12),
+                  if (_isLoading) const CircularProgressIndicator(),
                   if (!_isLoading)
                     RaisedButton(
-                      child: Text(_logInMode ? 'Login' : 'Signup'),
                       onPressed: _trySubmit,
+                      child: Text(_logInMode ? 'Login' : 'Signup'),
                     ),
                   if (!_isLoading)
                     FlatButton(
                       textColor: Theme.of(context).primaryColor,
-                      child: Text(_logInMode
-                          ? 'Create new account'
-                          : 'I already have an account'),
                       onPressed: () {
                         setState(() {
                           _logInMode = !_logInMode;
                         });
                       },
+                      child: Text(_logInMode
+                          ? 'Create new account'
+                          : 'I already have an account'),
                     )
                 ],
               ),
