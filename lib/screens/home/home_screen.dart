@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
-        title: Text('Space'),
+        title: const Text('Space'),
         backgroundColor: Colors.brown[400],
         //no drop shadow effect
         elevation: 0.0,
@@ -16,11 +16,11 @@ class HomeScreen extends StatelessWidget {
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.person,
               color: Colors.white,
             ),
-            label: Text(
+            label: const Text(
               'Logout',
               style: TextStyle(color: Colors.white),
             ),

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:space/screens/authentication/authentication_screen.dart';
 
 import './authentication/authentication_screen.dart';
-import 'home/homeScreen.dart';
+import 'home/home_screen.dart';
 
 // Wrapper listens for authentication changes
 // Depending on whether user is authenticated or not, it returns either HomeScreen() or AuthenticationScreen()
