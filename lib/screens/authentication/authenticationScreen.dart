@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../../widgets/auth/authForm.dart';
-import '../../services/auth.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   @override
@@ -15,52 +14,31 @@ class AuthenticationScreen extends StatefulWidget {
 }
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
-  final AuthService _authService = AuthService();
   var _isLoading = false;
-  //define methods here to keep functions separate from form widget
-  //submit form method
+
+  //define methods here to keep functions separate from AuthForm widget
   Future _submitAuthForm(
     String email,
     String password,
     String username,
     File image,
-    bool isLogin,
+    bool isUserLoggedIn,
     BuildContext ctx,
   ) async {
-    AuthResult authResult;
     try {
       setState(() {
         _isLoading = true;
       });
-      if (isLogin) {
-        authResult = await _authService.signIn(
+      if (!isUserLoggedIn) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
-      } else {
-        authResult = await _authService.register(
-          email: email,
-          password: password,
-        );
-        // final ref = FirebaseStorage.instance
-        //     .ref()
-        //     .child('user_image')
-        //     .child(authResult.user.uid + '.jpg');
-
-        // await ref.putFile(image).onComplete;
-
-        // final url = await ref.getDownloadURL();
-
-        // await Firestore.instance
-        //     .collection('users')
-        //     .document(authResult.user.uid)
-        //     .setData({
-        //   'username': username,
-        //   'email': email,
-        //   'image_url': url,
-        // });
-        return authResult;
       }
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on PlatformException catch (err) {
       var message = 'An error occurred, please check your credentials!';
 
@@ -94,7 +72,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         elevation: 0.0,
         title: Text('Sign In'),
       ),
-      body: AuthForm(),
+      body: AuthForm(_submitAuthForm),
     );
   }
 }
