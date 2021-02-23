@@ -12,30 +12,32 @@ class AuthenticationScreen extends StatefulWidget {
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
   var _isLoading = false;
-  final fallbackErrorMessage = 'An error occurred, please check your credentials!';
+  final fallbackErrorMessage =
+      'An error occurred, please check your credentials!';
 
-  Future _onAuthenticateUser(
+  Future<void> _onAuthenticateUser(
     String email,
     String password,
     String username,
     bool isUserLoggedIn,
     BuildContext ctx,
   ) async {
-    
     try {
       setState(() {
         _isLoading = true;
       });
       if (!isUserLoggedIn) {
-        return  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
-      } 
-      return await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+        return;
+      }
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return;
     } on PlatformException catch (err) {
       // ignore: deprecated_member_use
       Scaffold.of(ctx).showSnackBar(
@@ -64,7 +66,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         elevation: 0.0,
         title: Text('Sign In'),
       ),
-      body: AuthForm(),
+      body: AuthForm(_onAuthenticateUser),
     );
   }
 }
