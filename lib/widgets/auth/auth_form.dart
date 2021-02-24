@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -19,15 +18,15 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   final bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  var _logInMode = true;
-  var _userEmail = '';
-  var _userName = '';
-  var _userPassword = '';
+  bool _logInMode = true;
+  String _userEmail = '';
+  String _userName = '';
+  String _userPassword = '';
 
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
-    if (isValid) {
+    if (isValid ?? false) {
       _formKey.currentState.save();
       widget.submitFn(
         _userEmail.trim(),
@@ -67,7 +66,7 @@ class _AuthFormState extends State<AuthForm> {
                       labelText: 'Email address',
                     ),
                     onSaved: (value) {
-                      _userEmail = value;
+                      _userEmail = value ?? '';
                     },
                   ),
                   if (!_logInMode)
@@ -83,7 +82,7 @@ class _AuthFormState extends State<AuthForm> {
                       },
                       decoration: const InputDecoration(labelText: 'Username'),
                       onSaved: (value) {
-                        _userName = value;
+                        _userName = value ?? '';
                       },
                     ),
                   TextFormField(
@@ -97,7 +96,7 @@ class _AuthFormState extends State<AuthForm> {
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     onSaved: (value) {
-                      _userPassword = value;
+                      _userPassword = value ?? '';
                     },
                   ),
                   const SizedBox(height: 12),
