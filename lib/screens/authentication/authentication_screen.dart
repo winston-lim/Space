@@ -31,12 +31,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
           email: email,
           password: password,
         );
+        FirebaseAuth.instance.currentUser.updateProfile(displayName: username);
+        print(FirebaseAuth.instance.currentUser);
         return;
       }
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      print(FirebaseAuth.instance.currentUser);
       return;
     } on FirebaseAuthException catch (err) {
       // ignore: deprecated_member_use
