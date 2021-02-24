@@ -104,3 +104,6 @@ Temporary Items
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,macos,vscode
+
+# Google service config
+**/google-services.json
