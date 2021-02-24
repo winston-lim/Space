@@ -12,7 +12,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Whenever there is a stream change, User updates, and all values referring to Provider.of<user> will rerender
-    final user = Provider.of<FirebaseUser>(context);
+    final user = Provider.of<User>(context);
     if (user == null) {
       return AuthenticationScreen();
     }
