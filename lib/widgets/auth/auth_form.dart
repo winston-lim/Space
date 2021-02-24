@@ -18,6 +18,7 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   final bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
+  final ScrollController _homeController = ScrollController();
   bool _logInMode = true;
   String _userEmail = '';
   String _userName = '';
@@ -48,6 +49,7 @@ class _AuthFormState extends State<AuthForm> {
         ),
         child: Scrollbar(
           child: SingleChildScrollView(
+            controller: _homeController,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -136,6 +138,11 @@ class _AuthFormState extends State<AuthForm> {
                               setState(() {
                                 _logInMode = !_logInMode;
                               });
+                              _homeController.animateTo(
+                                0.0,
+                                curve: Curves.easeOut,
+                                duration: const Duration(milliseconds: 300),
+                              );
                             },
                             child: Text(_logInMode
                                 ? 'Create new account'
