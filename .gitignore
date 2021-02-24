@@ -107,3 +107,9 @@ Temporary Items
 
 # Google service config
 **/google-services.json
+
+# User defined
+.idea/
+android/Space_android.iml
+pubspec.lock
+
