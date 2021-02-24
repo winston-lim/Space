@@ -38,7 +38,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         password: password,
       );
       return;
-    } on PlatformException catch (err) {
+    } on FirebaseAuthException catch (err) {
       // ignore: deprecated_member_use
       Scaffold.of(ctx).showSnackBar(
         SnackBar(
@@ -60,11 +60,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.brown[50],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[100],
-        elevation: 0.0,
-        title: const Text('Sign In'),
-      ),
       body: AuthForm(_onAuthenticateUser),
     );
   }

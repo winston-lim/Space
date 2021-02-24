@@ -43,10 +43,9 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 30,
-        ),
+        color: Colors.brown[50],
+        elevation: 0.0,
+        margin: const EdgeInsets.fromLTRB(20, 60, 20, 30),
         child: Scrollbar(
           child: SingleChildScrollView(
             controller: _homeController,
