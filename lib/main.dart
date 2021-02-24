@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import './screens/home/home_screen.dart';
+import 'package:space/screens/home/home_screen.dart';
 import './screens/splash_screen.dart';
 import './screens/wrapper.dart';
 
@@ -20,16 +20,15 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SplashScreen();
           }
-          if (snapshot.hasData) {
-            return HomeScreen();
+          if (snapshot.connectionState == ConnectionState.done) {
+            return StreamProvider<User>.value(
+              value: FirebaseAuth.instance.authStateChanges(),
+              child: MaterialApp(
+                theme: ThemeData(),
+                home: Wrapper(),
+              ),
+            );
           }
-          return StreamProvider<User>.value(
-            value: FirebaseAuth.instance.authStateChanges(),
-            child: MaterialApp(
-              theme: ThemeData(),
-              home: Wrapper(),
-            ),
-          );
         },
       ),
     );
