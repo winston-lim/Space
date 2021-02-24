@@ -128,7 +128,14 @@ class _AuthFormState extends State<AuthForm> {
                         if (_isLoading) const CircularProgressIndicator(),
                         if (!_isLoading)
                           RaisedButton(
-                            onPressed: _trySubmit,
+                            onPressed: () {
+                              _trySubmit();
+                              _homeController.animateTo(
+                                0.0,
+                                curve: Curves.easeOut,
+                                duration: const Duration(milliseconds: 300),
+                              );
+                            },
                             child: Text(_logInMode ? 'Login' : 'Signup'),
                           ),
                         if (!_isLoading)
